@@ -3,15 +3,6 @@ const Human = require('./human.model');
 
 const router = express.Router();
 
-router.post('/humans', async (req, res, next) => {
-    try {
-        const doc = await Human.create({ ...req.body });
-        res.status(201).json({ doc })
-    } catch (e) {
-        console.log(e)
-        res.status(500).end()
-    }
-})
 router.get('/', async (req, res, next) => {
     try {
         const doc = await Human.find({});
@@ -21,12 +12,23 @@ router.get('/', async (req, res, next) => {
         res.status(500).end()
     }
 })
+
+router.post('/humans', async (req, res, next) => {
+    try {
+        const doc = await Human.create({ ...req.body });
+        res.status(201).json({ doc })
+    } catch (e) {
+        console.log(e)
+        res.status(500).end()
+    }
+})
+
 router.get('/humans', async (req, res, next) => {
-    const talentsPattern = req.query.talents //extracting talents from the query portion of the URL
+    const talentPattern = req.query.talents //extracting talent from the query portion of the URL
     try {
         const doc = await Human.find({
             talents:
-                { $regex: `^${talentsPattern}`, $options: 'i' } //finding talents that match this regex (talentsParam)
+                { $regex: `^${talentPattern}`, $options: 'i' } //finding talent that match this regex (talentParam)
         });
         res.status(200).json({ doc });
     } catch (e) {
