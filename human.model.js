@@ -9,5 +9,5 @@ const humanSchema = new mongoose.Schema({
     }
 });
 
-const Human = mongoose.model('Human', humanSchema);
+const Human = mongoose.model('human', humanSchema);
 module.exports = Human;
